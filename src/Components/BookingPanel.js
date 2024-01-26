@@ -1,7 +1,21 @@
 import React from "react";
 
-const BookingPanel = ({ selectedSeats, totalPrice, onBookNow }) => (
+const BookingPanel = ({
+  selectedSeats,
+  totalPrice,
+  onBookNow,
+  handleNumOfSeatsToBook,
+  numOfSeatsToBook,
+}) => (
   <div className="booking-panel">
+    <label>
+      Number of seats to book:
+      <input
+        type="number"
+        value={numOfSeatsToBook}
+        onChange={handleNumOfSeatsToBook}
+      />
+    </label>
     <h2>Booking Details</h2>
     <ul>
       {selectedSeats.map((seat) => (
