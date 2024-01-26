@@ -28,15 +28,8 @@ const App = () => {
     const currentStatus = newSeatStatus[row][col];
 
     if (currentStatus === "available") {
-      const seatsToBook = calculateSeats(row, col);
-      seatsToBook.forEach(([r, c]) => {
-        newSeatStatus[r][c] = "selected";
-      });
-      const updatedSelectedSeats = [
-        ...selectedSeats,
-        ...seatsToBook.map(([r, c]) => ({ id: generateSeatId(r, c) })),
-      ];
-      setSelectedSeats(updatedSelectedSeats);
+      newSeatStatus[row][col] = "selected";
+      setSelectedSeats([...selectedSeats, { id }]);
       setTotalPrice(totalPrice + 150);
     } else if (currentStatus === "selected") {
       newSeatStatus[row][col] = "available";
@@ -48,22 +41,6 @@ const App = () => {
     }
 
     setSeatStatus(newSeatStatus);
-  };
-
-  const calculateSeats = (startRow, startCol) => {
-    const seatsToBook = [];
-    const continousSeatsAvailable = true;
-    for (let col = startCol; col < seatStatus[0].length; col++) {
-      if (
-        seatStatus[startRow][col] === "available" &&
-        continousSeatsAvailable
-      ) {
-        seatsToBook.push([startRow, col]);
-      } else {
-        continousSeatsAvailable = false;
-      }
-    }
-    return seatsToBook;
   };
 
   const handleBookNow = () => {
